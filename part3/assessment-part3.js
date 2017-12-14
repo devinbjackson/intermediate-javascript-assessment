@@ -14,10 +14,12 @@
 
 // CODE HERE...
 function callBinding(magicAnimals, updateAnimal, id){
-    var things = magicAnimals.indexOf(magicAnimals.findIndex(function(elem){
-        return elem.id === id;
-    })).updateAnimal("Trogdor");
-    return things;
+    var thing = {};
+    for(var i = 0, len = magicAnimals.length; i < len; i++) {
+     if (magicAnimals[i].id === id) thing = magicAnimals[i];
+     }
+     return updateAnimal.call(thing, 'Trogdor');
+    
 }
 
 
@@ -33,7 +35,13 @@ function callBinding(magicAnimals, updateAnimal, id){
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
-
+function applyBinding(magicAnimals, updateAnimal, id){
+    var thing = {};
+    for(var i = 0, len = magicAnimals.length; i < len; i++) {
+     if (magicAnimals[i].id === id) thing = magicAnimals[i];
+     }
+     return updateAnimal.apply(thing, ['being majestic', 'eating rainbows']);
+}
 
 
 // *************
@@ -53,7 +61,14 @@ function callBinding(magicAnimals, updateAnimal, id){
 var foo;
 
 // CODE HERE...
-
+function promiseMe($q){
+    return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            foo = 'bar'
+            resolve(foo)
+          }, 20)
+      });
+}
 
 
 // *************
@@ -69,3 +84,32 @@ var foo;
 // and then resolve the array as you complete your promise.
 
 // CODE HERE...
+function emailList($q, $http){
+    return new Promise(function(resolve, reject) {
+        $http.get('/api/users').then(response => {
+            var array = []
+            console.log("rd",response.data,"array",array)
+            response.data.forEach(function(elem){
+                array.push(elem.email)
+                console.log(array)
+            })
+            resolve(array);
+        })
+      });
+
+}
+// function emailList($http, $q) {
+//     return {
+//       get: function() {
+//           var deferred = $q.defer();
+//           $http.get('api/users')
+//           .then(function(response){
+//              deferred.resolve(response.data);
+//           })
+//           .catch(function(response){
+//             deferred.reject(response);
+//           });
+//           return deferred.promise;
+//       }
+//     }
+//   }
