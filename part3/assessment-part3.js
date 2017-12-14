@@ -13,7 +13,12 @@
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
-
+function callBinding(magicAnimals, updateAnimal, id){
+    var things = magicAnimals.indexOf(magicAnimals.findIndex(function(elem){
+        return elem.id === id;
+    })).updateAnimal("Trogdor");
+    return things;
+}
 
 
 // *************
